@@ -31,6 +31,13 @@ function updateCaptain() {
         date+' (Orange County).  &nbsp; ';
 }
 
+function loadLineChart(labels, active, death) {
+    chart.data.labels = labels;
+    chart.data.datasets[0].data = active;
+    chart.data.datasets[1].data = death;
+    chart.update();
+}
+
 function resetSelecrBars() {
     document.getElementById('sortLine').value = 'total_cases';
     document.getElementById('filterLine').value = 'total';
@@ -53,13 +60,6 @@ function loadPieChart(labelsIn, dataIn) {
     chart2.data.labels = labelsIn;
     chart2.data.datasets[0].data = dataIn;
     chart2.update();
-}
-
-function loadLineChart(labels, active, death) {
-    chart.data.labels = labels;
-    chart.data.datasets[0].data = active;
-    chart.data.datasets[1].data = death;
-    chart.update();
 }
 
 function updateTable() {
