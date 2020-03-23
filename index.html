@@ -44,11 +44,11 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
             <main>
             <div class="row flex">
-                <div class="col s12"><h3>95 total cases and 0 deaths as of 3/22/20 (Orange County).  &nbsp; </h3><h3><a href = "map.html">See Map for affected areas.</a></h3></div>
+                <div class="col s12"><h3 id="captainL">95 total cases and 0 deaths as of 3/22/20 (Orange County). &nbsp;</h3><h3><a href = "map.html">See Map for affected areas.</a></h3></div>
                 <div class="col s6 resize"> 
-                    <div class = "card">
+                    <div class="card">
                         <div class="input-field col s12">
-                            <select>
+                            <select onChange='updateLineChart()' id="sortLine">
                                 <option value="total_cases" selected>Total</option>
                                 <option value="travel_related">Travel Related</option>
                                 <option value="person_to_person_spread">Person-to-person Spread</option>
@@ -57,16 +57,28 @@
                             </select>
                             <label>Sort By</label>
                         </div>
+                        <div class="input-field col s12">
+                            <select onChange='updateLineChart()' id="filterLine">
+                                <option value="total" selected>No Filter</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="18"> &lt; 18 </option>
+                                <option value="18-49">18 - 49</option>
+                                <option value="50-64">50 - 64</option>
+                                <option value="65">&ge; 65</option>
+                            </select>
+                            <label>Filter By</label>
+                        </div>
                         <canvas id="myChart"></canvas>
                     </div>
                 </div>
                 <div class="col s6 resize"> 
                     <div class="card">
                         <div class="input-field col s12">
-                            <select>
-                                <option value="1" selected>Spread Vectors</option>
-                                <option value="2">Gender</option>
-                                <option value="3">Age</option>
+                            <select onChange='updatePieChart()' id="pieL">
+                                <option value="spread_vectors" selected>Spread Vectors</option>
+                                <option value="gender">Gender</option>
+                                <option value="age">Age</option>
                             </select>
                             <label>Sort By</label>
                         </div>
@@ -87,7 +99,7 @@
                             <th class="deep-orange lighten-3">&ge; 65</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="currentT">
                         <tr>
                             <td>Cases</td>
                             <td>65</td>

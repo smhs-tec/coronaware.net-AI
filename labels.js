@@ -10,10 +10,12 @@ var dateLabel = [];
 while(currentParse < currentTime) {
     let current = new Date(currentParse);
 
-    dateLabel.push((current.getMonth() + 1) + '.' + current.getDate());
+    dateLabel.push((current.getMonth() + 1) + '/' + current.getDate());
     currentParse += millSecondInADay;
 }
 
 if(cases[cases.length-1].date != dateLabel[dateLabel.length-1]) {
     dateLabel.splice(-1,1);
 }
+
+const currentTable = cases[cases.length-1];
