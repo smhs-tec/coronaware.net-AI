@@ -6,7 +6,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>  
+        <script src="lib/jquery.js"></script>
+        <script src="lib/brain.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
         integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
@@ -26,39 +27,43 @@
         <meta name="description" content="Real time website for OC COVID-19 cases"/>
         <!--icon designed by Raihanil Jannah https://www.iconfinder.com/Raihanil_jannah-->
     </head>
-    <body class = "grey lighten-3">
+    <body class="grey lighten-3">
                 
-        <nav class = "grey darken-4" style="padding-left: 32px;"><a href="#" class="brand-logo ">coronaware</a> 
+        <nav class = "grey darken-4" style="padding-left: 32px;"><a href="/" class="brand-logo ">coronaware</a> 
             <a href="#" data-target="sidenav-1" class="left sidenav-trigger hide-on-medium-and-up"><i class="material-icons">menu</i></a>
         </nav>
         <ul id="sidenav-1" class="sidenav sidenav-fixed blue-grey darken-4" >
-            <li><a class="waves-effect" href="index.html"><i class="material-icons">timeline</i>Stats</a></li>
-            <li><a class="waves-effect" href="map.html"><i class="material-icons">map</i>Map</a></li>
-            <li><a class="waves-effect" href="what-to-know.html"><i class="material-icons">warning</i>What to Know</a></li>
-            <li><a class="waves-effect" href="news.html"><i class="material-icons">announcement</i>News</a></li>
+            <li><a class="waves-effect" href="/"><i class="material-icons">timeline</i>Stats</a></li>
+            <!--<li><a class="waves-effect" href="map"><i class="material-icons">map</i>Map</a></li>-->
+            <li><a class="waves-effect" href="what-to-know"><i class="material-icons">warning</i>What to Know</a></li>
+            <li><a class="waves-effect" href="news"><i class="material-icons">announcement</i>News</a></li>
             <li><div class="divider"></div></li>
-            <li><a class="waves-effect" href="contact.html" ><i class="material-icons">email</i>Contact</a></li>
-            <li><a class="waves-effect" href="about.html"><i class="material-icons">info</i>About</a></li>
+            <li><a class="waves-effect" href="contact" ><i class="material-icons">email</i>Contact</a></li>
+            <li><a class="waves-effect" href="about"><i class="material-icons">info</i>About</a></li>
         </ul>
        
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
             <main>
             <div class="row flex">
-                <div class="col s12"><h3 id="captainL">95 total cases and 0 deaths as of 3/22/20 (Orange County). &nbsp;</h3><h3><a href = "map.html">See Map for affected areas.</a></h3></div>
+                <div class="col s12">
+                    <h3 id="captainL">95 total cases and 0 deaths as of 3/22/20 (Orange County). &nbsp;</h3>
+                    <!--<h3><a href = "map">See Map for affected areas.</a></h3>-->
+                </div>
                 <div class="col s6 resize"> 
                     <div class="card">
-                        <div class="input-field col s12">
-                            <select onchange='updateLineChart()' id="sortLine">
+                        <!--<div class="input-field col s12">-->
+                            <label>Sort By</label>
+                            <select class="browser-default" onchange='updateLineChart()' id="sortLine">
                                 <option value="total_cases" selected>Total</option>
                                 <option value="travel_related">Travel Related</option>
                                 <option value="person_to_person_spread">Person-to-person Spread</option>
                                 <option value="community_acquired">Community Acquired</option>
                                 <option value="under_investigation">Under Investigation</option>
                             </select>
-                            <label>Sort By</label>
-                        </div>
-                        <div class="input-field col s12">
-                            <select onchange='updateLineChart()' id="filterLine">
+                        <!--</div>-->
+                        <!--<div class="input-field col s12">-->
+                            <label>Filter By</label>
+                            <select class="browser-default" onchange='updateLineChart()' id="filterLine">
                                 <option value="total" selected>No Filter</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
@@ -67,25 +72,25 @@
                                 <option value="50-64">50 - 64</option>
                                 <option value="65">&ge; 65</option>
                             </select>
-                            <label>Filter By</label>
-                        </div>
+                        <!--</div>-->
                         <canvas id="myChart"></canvas>
                     </div>
                 </div>
                 <div class="col s6 resize"> 
                     <div class="card">
-                        <div class="input-field col s12">
-                            <select onchange='updatePieChart()' id="pieL">
+                        <!--<div class="input-field col s12">-->
+                            <label>Sort By</label>
+                            <select class="browser-default" onchange='updatePieChart()' id="pieL">
                                 <option value="spread_vectors" selected>Spread Vectors</option>
                                 <option value="gender">Gender</option>
                                 <option value="age">Age</option>
                             </select>
-                            <label>Sort By</label>
-                        </div>
-                        <div class = ""><canvas id="myChart2"><p>fd</p></canvas></div>
+                        <!--</div>-->
+                        <div class=""><canvas id="myChart2"><p>fd</p></canvas></div>
                     </div>
                 </div>
-                <div class="col s12 "><h3>Covid-19 Cases</h3>
+                <div class="col s12">
+                    <h3>Covid-19 Cases</h3>
                     <table class = "responsive-table">
                     <thead>
                         <tr style="border-bottom: 3px solid;">
@@ -101,73 +106,16 @@
                     </thead>
                     <tbody id="currentT">
                         <tr>
-                            <td>Cases</td>
-                            <td>65</td>
-                            <td>39</td>
-                            <td>26</td>
-                            <td>1</td>
-                            <td>33</td>
-                            <td>19</td>
-                            <td>12</td>
-                        
+                            <td>Loading</td>
+                            <td>?</td>
+                            <td>?</td>
+                            <td>?</td>
+                            <td>?</td>
+                            <td>?</td>
+                            <td>?</td>
+                            <td>?</td>
                         </tr>
                         
-                        <tr style="border-bottom: 3px solid;">
-                            <td>Total Deaths</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-
-                        </tr>
-                        
-                        <tr>
-                            <td>Travel Related</td>
-                            <td>28</td>
-                            <td>16</td>
-                            <td>12</td>
-                            <td>0</td>
-                            <td>14</td>
-                            <td>10</td>
-                            <td>4</td>
-
-                        </tr>
-                        <tr>
-                            <td>Person to Person Spread</td>
-                            <td>7</td>
-                            <td>6</td>
-                            <td>1</td>
-                            <td>0</td>
-                            <td>6</td>
-                            <td>1</td>
-                            <td>0</td>
-
-                        </tr>
-                        <tr>
-                            <td>Community Acquired</td>
-                            <td>26</td>
-                            <td>15</td>
-                            <td>11</td>
-                            <td>1</td>
-                            <td>10</td>
-                            <td>8</td>
-                            <td>7</td>
-
-                        </tr>
-                        <tr>
-                            <td>Under Investigation</td>
-                            <td>4</td>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>0</td>
-                            <td>3</td>
-                            <td>0</td>
-                            <td>1</td>
-
-                        </tr>
                         </tbody>
                     </table>
                 </div>

@@ -14,8 +14,20 @@ while(currentParse < currentTime) {
     currentParse += millSecondInADay;
 }
 
-if(cases[cases.length-1].date != dateLabel[dateLabel.length-1]) {
-    dateLabel.splice(-1,1);
+for(let i = 0; i < 7; i++) {
+    let current = new Date(currentParse);
+
+    dateLabel.push((current.getMonth() + 1) + '/' + current.getDate());
+    if(current.getDay() == 0 && i != 0) {
+        break;
+    }
+    currentParse += millSecondInADay;
 }
 
-const currentTable = cases[cases.length-1];
+/*
+if(cases[cases.length-1].date != dateLabel[dateLabel.length-1]) {
+    dateLabel.splice(-1,1);
+}*/
+
+const currentTable = cases[cases.length - 1];
+const currentTablePrev = cases[cases.length - 2];

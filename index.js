@@ -1,3 +1,13 @@
+/**
+ * check if the user is on mobile or ipad
+ */
+function isMobile() {
+    if (/iPhone|iPad|iPodMobi|Android/i.test(navigator.userAgent)) {
+        return true;
+    }
+    return false;
+}
+
 //menu setup
 function chartsize() {
     width = document.documentElement.clientWidth;
@@ -18,16 +28,28 @@ $(document).ready(function(){
         $('.sidenav').sidenav(); 
         chartsize();
     }
-
 });
 
 //chart.js setup
+function generateSpan(numIn) {
+    if(numIn > 0) {
+        return '<span style="color:red">+' + numIn+'</span>';
+    } else if (numIn == 0) {
+        return '<span style="color:green">+' + numIn + '</span>';
+    }
+
+    return '<span style="color:green">' + numIn + '</span>';
+}
+
 function updateCaptain() {
     let totalActive = currentTable.cases.total_cases[0];
     let totalDeath = currentTable.cases.death[0];
+    let totalActivePrev = currentTablePrev.cases.total_cases[0];
+    let totalDeathPrev = currentTablePrev.cases.death[0];
     let date = currentTable.date + '/20';
 
-    document.getElementById('captainL').innerHTML = totalActive + ' total cases and '+totalDeath+' deaths as of '+
+    document.getElementById('captainL').innerHTML = totalActive + '(' + generateSpan(totalActive - totalActivePrev) 
+        + ') total cases and ' + totalDeath + '(' + generateSpan(totalDeath - totalDeathPrev) +') deaths as of '+
         date+' (Orange County).  &nbsp; ';
 }
 
@@ -68,8 +90,11 @@ function updateTable() {
     for (let [key, value] of Object.entries(currentTable.cases)) {
         let row = '<tr><td>'+ tableFullColName[key] +'</td>';
 
-        for(let ele of value) {
-            row += '<td>'+ ele +'</td>';
+        for(let ele in value) {
+            let todayNum = value[ele];
+            let prevNum = currentTablePrev.cases[key][ele];
+            row += '<td>' + todayNum + '<span style="margin-left: 10px;"><span>' 
+            + generateSpan(todayNum - prevNum) +'</td>';
         }
         
         row += '</tr>';
@@ -77,6 +102,14 @@ function updateTable() {
     }
 
     document.getElementById('currentT').innerHTML = result;
+}
+
+function changeSelectBar() {
+    if (!isMobile()) {
+        document.getElementById('sortLine').className = 'browser-default';
+        document.getElementById('filterLine').className = 'browser-default';
+        document.getElementById('pieL').className = 'browser-default';
+    }
 }
 
 function updateLineChart() {
@@ -117,17 +150,31 @@ var chart = new Chart(ctx, {
         datasets: [
             {
                 label: 'Active Cases',
-                backgroundColor: '#ee6e73',
+                backgroundColor: 'transparent',
                 borderColor: '#ee6e73',
+                pointBackgroundColor: '#ee6e73',
+                pointRadius: 4,
+                pointHoverRadius: 5,
                 data: [],
                 order: 0
             },
             {
                 label: 'Death',
-                backgroundColor: '#aaa',
+                backgroundColor: 'transparent',
                 borderColor: '#aaa',
+                pointBackgroundColor: '#aaa',
                 data: [],
                 order: 1
+            },
+            {
+                label: 'AI Prediction',
+                backgroundColor: 'transparent',
+                borderColor: '#00BFFF',
+                pointBackgroundColor: '#00BFFF',
+                pointRadius: 3,
+                pointHoverRadius: 4,
+                data: predictions,
+                order: 2
             }
         ]
     },
@@ -136,10 +183,11 @@ var chart = new Chart(ctx, {
             yAxes: [{
                 ticks: {
                     suggestedMin: 0,
-                    suggestedMax: 100
+                    suggestedMax: 600
                 }
             }]
-        }
+        },
+        aspectRatio: 1.5
     }
 });
 
@@ -163,8 +211,26 @@ var chart2 = new Chart(ctx2, {
     options: {}
 });
 
+//changeSelectBar();
 loadFromString('total_cases', 'total');
 updatePieChart();
 updateTable();
 resetSelecrBars();
 updateCaptain();
+
+/* use once every Sunday to print JSON prediction result */
+function printAIResult() {
+    const net = new brain.recurrent.GRUTimeStep()
+    let training = [];
+    let nanArray = [];
+
+    for(let ele of cases) {
+        training.push(ele.cases.total_cases[0]);
+        nanArray.push(NaN);
+    }
+    net.train([training]);
+
+    console.log(nanArray, net.forecast(training, 7));
+}
+
+//printAIResult();
