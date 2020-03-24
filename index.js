@@ -8,6 +8,12 @@ function isMobile() {
     return false;
 }
 
+function adjustGraph() {
+    //console.log(chart.options.aspectRatio);
+    chart.canvas.parentNode.style.height = '328px';
+    chart.canvas.parentNode.style.width = '100%';
+}
+
 //menu setup
 function chartsize() {
     width = document.documentElement.clientWidth;
@@ -27,6 +33,7 @@ $(document).ready(function(){
     window.onresize = function(event) { 
         $('.sidenav').sidenav(); 
         chartsize();
+        adjustGraph();
     }
 });
 
@@ -47,10 +54,15 @@ function updateCaptain() {
     let totalActivePrev = currentTablePrev.cases.total_cases[0];
     let totalDeathPrev = currentTablePrev.cases.death[0];
     let date = currentTable.date + '/20';
+    let difference = totalActive - totalActivePrev;
 
-    document.getElementById('captainL').innerHTML = totalActive + '(' + generateSpan(totalActive - totalActivePrev) 
-        + ') total cases and ' + totalDeath + '(' + generateSpan(totalDeath - totalDeathPrev) +') deaths as of '+
-        date+' (Orange County).  &nbsp; ';
+    document.getElementById('captainSection').innerHTML = '<h3 id="captainL">' + totalActive + '(' + generateSpan(difference) 
+        + '*) total cases and ' + totalDeath + '(' + generateSpan(totalDeath - totalDeathPrev) +') deaths as of '+
+        date +' (<a href="https://www.ochealthinfo.com/phs/about/epidasmt/epi/dip/prevention/novel_coronavirus">Orange County</a>).  &nbsp; </h1>' +
+        '<p style="margin: 5px 0;">* ' + generateSpan(difference) + ' : means that ' + difference +' more cases compared to yesterday</p>' +
+        '<p style="margin: 5px 0; margin-top:-3px">* the cases are categoried as <b>unknown</b> were not recorded in this website</p>' +
+        '<span class="badge" style="float: left; background-color: rgb(218, 116, 78);color: black;">Scroll down for charts &#8595;&#8595;</span>'
+        ;
 }
 
 function loadLineChart(labels, active, death) {
@@ -153,8 +165,8 @@ var chart = new Chart(ctx, {
                 backgroundColor: 'transparent',
                 borderColor: '#ee6e73',
                 pointBackgroundColor: '#ee6e73',
-                pointRadius: 4,
-                pointHoverRadius: 5,
+                pointRadius: 3,
+                pointHoverRadius: 4,
                 data: [],
                 order: 0
             },
@@ -171,8 +183,8 @@ var chart = new Chart(ctx, {
                 backgroundColor: 'transparent',
                 borderColor: '#00BFFF',
                 pointBackgroundColor: '#00BFFF',
-                pointRadius: 3,
-                pointHoverRadius: 4,
+                pointRadius: 5,
+                pointHoverRadius: 6,
                 data: predictions,
                 order: 2
             }
@@ -182,12 +194,13 @@ var chart = new Chart(ctx, {
         scales: {
             yAxes: [{
                 ticks: {
-                    suggestedMin: 0,
-                    suggestedMax: 600
+                    min: 0,
+                    max: 500
                 }
             }]
         },
-        aspectRatio: 1.5
+        maintainAspectRatio: false,
+        aspectRatio: 1.7
     }
 });
 
@@ -217,6 +230,7 @@ updatePieChart();
 updateTable();
 resetSelecrBars();
 updateCaptain();
+adjustGraph();
 
 /* use once every Sunday to print JSON prediction result */
 function printAIResult() {

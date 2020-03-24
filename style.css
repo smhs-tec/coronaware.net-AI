@@ -98,3 +98,25 @@ nav {
         padding: 64px 20px;
     }
 }
+
+.chartContainer {
+    margin-top: 5px;
+}
+
+#captainL {
+    font-size: 35px;
+}
+
+#captainL a {
+    color: orange;
+}
+
+#captainL a:hover {
+    text-decoration: underline;
+}
+
+@media only screen and (max-width: 600px) {
+    #captainL {
+        font-size: 23px;
+    }
+}

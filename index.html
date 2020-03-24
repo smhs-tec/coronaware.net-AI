@@ -15,10 +15,10 @@
         <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
    crossorigin=""></script>
-        <script src="cases.js" defer></script>
-        <script src="labels.js" defer></script>
-        <script src="index.js" defer></script>
-        <link rel= "stylesheet" type= "text/css" href= "style.css">
+        <script src="cases.js?version=2" defer></script>
+        <script src="labels.js?version=1" defer></script>
+        <script src="index.js?version=4" defer></script>
+        <link rel= "stylesheet" type= "text/css" href= "style.css?version=2">
         <meta charset="UTF-8">
         <link rel="icon" type="image/png" sizes="32x32" href="./img/logo-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="./img/logo-16x16.png">
@@ -45,9 +45,42 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
             <main>
             <div class="row flex">
-                <div class="col s12">
-                    <h3 id="captainL">95 total cases and 0 deaths as of 3/22/20 (Orange County). &nbsp;</h3>
+                <div class="col s12" id="captainSection">
+                    <h3 id="captainL">95 total cases and 0 deaths as of 3/22/20 (
+                        <a href="https://www.ochealthinfo.com/phs/about/epidasmt/epi/dip/prevention/novel_coronavirus">Orange County</a>). &nbsp;</h3>
+                        <p><span style="color: red;">*</span> "+12" : mean that 12 more cases compared to yesterday</p>
+                        <span class="badge" style="float: left; background-color: rgb(218, 116, 78);color: black;">Scroll down for charts &#8595;&#8595;</span>
                     <!--<h3><a href = "map">See Map for affected areas.</a></h3>-->
+                </div>
+                <div class="col s12">
+                    <!--<h3>Covid-19 Cases</h3>-->
+                    <table class="responsive-table">
+                        <thead>
+                            <tr style="border-bottom: 3px solid;">
+                                <th></th>
+                                <th>Total Cases</th>
+                                <th class="blue-grey lighten-2">Male</th>
+                                <th class="blue-grey lighten-2">Female</th>
+                                <th class="deep-orange lighten-3">&lt; 18</th>
+                                <th class="deep-orange lighten-3">18-49</th>
+                                <th class="deep-orange lighten-3">50-64</th>
+                                <th class="deep-orange lighten-3">&ge; 65</th>
+                            </tr>
+                        </thead>
+                        <tbody id="currentT">
+                            <tr>
+                                <td>Loading</td>
+                                <td>?</td>
+                                <td>?</td>
+                                <td>?</td>
+                                <td>?</td>
+                                <td>?</td>
+                                <td>?</td>
+                                <td>?</td>
+                            </tr>
+                
+                        </tbody>
+                    </table>
                 </div>
                 <div class="col s6 resize"> 
                     <div class="card">
@@ -73,7 +106,7 @@
                                 <option value="65">&ge; 65</option>
                             </select>
                         <!--</div>-->
-                        <canvas id="myChart"></canvas>
+                        <div class="chartContainer"><canvas id="myChart"></canvas></div>
                     </div>
                 </div>
                 <div class="col s6 resize"> 
@@ -86,39 +119,10 @@
                                 <option value="age">Age</option>
                             </select>
                         <!--</div>-->
-                        <div class=""><canvas id="myChart2"><p>fd</p></canvas></div>
+                        <div class="chartContainer"><canvas id="myChart2"><p>fd</p></canvas></div>
                     </div>
                 </div>
-                <div class="col s12">
-                    <h3>Covid-19 Cases</h3>
-                    <table class = "responsive-table">
-                    <thead>
-                        <tr style="border-bottom: 3px solid;">
-                            <th></th>
-                            <th>Total Cases</th>
-                            <th class="blue-grey lighten-2">Male</th>
-                            <th class="blue-grey lighten-2">Female</th>
-                            <th class="deep-orange lighten-3">&lt; 18</th>
-                            <th class="deep-orange lighten-3">18-49</th>
-                            <th class="deep-orange lighten-3">50-64</th>
-                            <th class="deep-orange lighten-3">&ge; 65</th>
-                        </tr>
-                    </thead>
-                    <tbody id="currentT">
-                        <tr>
-                            <td>Loading</td>
-                            <td>?</td>
-                            <td>?</td>
-                            <td>?</td>
-                            <td>?</td>
-                            <td>?</td>
-                            <td>?</td>
-                            <td>?</td>
-                        </tr>
-                        
-                        </tbody>
-                    </table>
-                </div>
+                
             </div>
         </main>
         <footer class="page-footer grey darken-4">
@@ -140,8 +144,10 @@
             </div>
             <div class="footer-copyright">
               <div class="container">
-              © 2020 Coronaware
-              <a class="grey-text text-lighten-4 right" href="#!">Created by Alex Lynd / Robin Gan</a>
+                © 2020 Coronaware
+                <p class="grey-text text-lighten-4 right" style="margin:0;">Created by Alex Lynd / Robin Gan</p>
+                <br/>
+                <p class="grey-text text-lighten-4 right" style="margin:0;">Maintained by Luke Soliman</p>
               </div>
             </div>
           </footer>
