@@ -9,9 +9,11 @@ function isMobile() {
 }
 
 function adjustGraph() {
-    //console.log(chart.options.aspectRatio);
-    chart.canvas.parentNode.style.height = '328px';
-    chart.canvas.parentNode.style.width = '100%';
+    //console.log(trendLineChart.options.aspectRatio);
+    trendLineChart.canvas.parentNode.style.height = '328px';
+    trendLineChart.canvas.parentNode.style.width = '100%';
+    aiPredictionLineChart.canvas.parentNode.style.height = '328px';
+    aiPredictionLineChart.canvas.parentNode.style.width = '100%';
 }
 
 //menu setup
@@ -26,6 +28,7 @@ function chartsize() {
             $('.resize').addClass('s6');
         }
 }
+
 $(document).ready(function(){
     $('select').formSelect();
     $('.sidenav').sidenav(); 
@@ -35,9 +38,10 @@ $(document).ready(function(){
         chartsize();
         adjustGraph();
     }
+    $('.tabs').tabs();
 });
 
-//chart.js setup
+//trendLineChart.js setup
 function generateSpan(numIn) {
     if(numIn > 0) {
         return '<span style="color:red">+' + numIn+'</span>';
@@ -63,13 +67,21 @@ function updateCaptain() {
         '<p style="margin: 5px 0; margin-top:-3px">* the cases are categoried as <b>unknown</b> were not recorded in this website</p>' +
         '<span class="badge" style="float: left; background-color: rgb(218, 116, 78);color: black;">Scroll down for charts &#8595;&#8595;</span>'
         ;
+
+    let reverseDate = dateLabel.reverse();
+    let result = '<option value="' + (reverseDate.length - 1) +'" selected>Today</option>';
+    for (let ele in reverseDate) {
+        result += '<option value="' + (reverseDate.length - ele - 1) + '">' + reverseDate[ele] +'</option>';
+    }
+
+    document.getElementById('changeDate').innerHTML = result;
 }
 
 function loadLineChart(labels, active, death) {
-    chart.data.labels = labels;
-    chart.data.datasets[0].data = active;
-    chart.data.datasets[1].data = death;
-    chart.update();
+    trendLineChart.data.labels = labels;
+    trendLineChart.data.datasets[0].data = active;
+    trendLineChart.data.datasets[1].data = death;
+    trendLineChart.update();
 }
 
 function resetSelecrBars() {
@@ -91,24 +103,31 @@ function loadFromString(rowName, columnName) {
 }
 
 function loadPieChart(labelsIn, dataIn) {
-    chart2.data.labels = labelsIn;
-    chart2.data.datasets[0].data = dataIn;
-    chart2.update();
+    pieChart.data.labels = labelsIn;
+    pieChart.data.datasets[0].data = dataIn;
+    pieChart.update();
 }
 
-function updateTable() {
+function updateTable(todayTableIndex) {
     let result = '';
+    todayTableIndex = parseInt(todayTableIndex);
+    let todayCas = cases[todayTableIndex].cases;
+    let prevCas = cases[todayTableIndex].cases;
 
-    for (let [key, value] of Object.entries(currentTable.cases)) {
-        let row = '<tr><td>'+ tableFullColName[key] +'</td>';
+    if (todayTableIndex != 0) {
+        prevCas = cases[todayTableIndex - 1].cases;
+    }
 
-        for(let ele in value) {
+    for (let [key, value] of Object.entries(todayCas)) {
+        let row = '<tr><td>' + tableFullColName[key] + '</td>';
+
+        for (let ele in value) {
             let todayNum = value[ele];
-            let prevNum = currentTablePrev.cases[key][ele];
-            row += '<td>' + todayNum + '<span style="margin-left: 10px;"><span>' 
-            + generateSpan(todayNum - prevNum) +'</td>';
+            let prevNum = prevCas[key][ele];
+            row += '<td>' + todayNum + '<span style="margin-left: 10px;"><span>'
+                + generateSpan(todayNum - prevNum) + '</td>';
         }
-        
+
         row += '</tr>';
         result += row;
     }
@@ -154,8 +173,50 @@ function updatePieChart() {
     }
 }
 
+var ctx = document.getElementById('myChart3').getContext('2d');
+var aiPredictionLineChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: dateLabelPrediction,
+        datasets: [
+            {
+                label: 'Actual Total Cases',
+                backgroundColor: 'transparent',
+                borderColor: '#ee6e73',
+                pointBackgroundColor: '#ee6e73',
+                pointRadius: 3,
+                pointHoverRadius: 4,
+                data: dateLabelActual,
+                order: 0
+            },
+            {
+                label: 'AI Prediction',
+                backgroundColor: 'transparent',
+                borderColor: '#00BFFF',
+                pointBackgroundColor: '#00BFFF',
+                pointRadius: 5,
+                pointHoverRadius: 6,
+                data: predictions,
+                order: 1
+            }
+        ]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    suggestedMin: 100,
+                    suggestedMax: 500
+                }
+            }]
+        },
+        maintainAspectRatio: false,
+        aspectRatio: 1.7
+    }
+});
+
 var ctx = document.getElementById('myChart').getContext('2d');
-var chart = new Chart(ctx, {
+var trendLineChart = new Chart(ctx, {
     type: 'line',
     data: {
         labels: [],
@@ -177,16 +238,6 @@ var chart = new Chart(ctx, {
                 pointBackgroundColor: '#aaa',
                 data: [],
                 order: 1
-            },
-            {
-                label: 'AI Prediction',
-                backgroundColor: 'transparent',
-                borderColor: '#00BFFF',
-                pointBackgroundColor: '#00BFFF',
-                pointRadius: 5,
-                pointHoverRadius: 6,
-                data: predictions,
-                order: 2
             }
         ]
     },
@@ -194,8 +245,8 @@ var chart = new Chart(ctx, {
         scales: {
             yAxes: [{
                 ticks: {
-                    min: 0,
-                    max: 500
+                    suggestedMin: 0,
+                    suggestedMax: 150
                 }
             }]
         },
@@ -208,7 +259,7 @@ var ctx2 = document.getElementById('myChart2').getContext('2d');
 var options = {
     segmentShowStroke: false
 };
-var chart2 = new Chart(ctx2, {
+var pieChart = new Chart(ctx2, {
     type: 'pie',
     data: {
         labels: [],
@@ -218,7 +269,6 @@ var chart2 = new Chart(ctx2, {
             borderColor: "#111111",
             borderWidth: 0,
             data: []
-        
         }]
     },
     options: {}
@@ -227,24 +277,27 @@ var chart2 = new Chart(ctx2, {
 //changeSelectBar();
 loadFromString('total_cases', 'total');
 updatePieChart();
-updateTable();
+updateTable(cases.length - 1);
 resetSelecrBars();
 updateCaptain();
 adjustGraph();
 
 /* use once every Sunday to print JSON prediction result */
 function printAIResult() {
+    /*
+    var net1 = new brain.recurrent.RNNTimeStep();
+    var net2 = new brain.recurrent.LSTMTimeStep();
+    var net3 = new brain.recurrent.GRUTimeStep();
+    */
     const net = new brain.recurrent.GRUTimeStep()
     let training = [];
-    let nanArray = [];
 
     for(let ele of cases) {
         training.push(ele.cases.total_cases[0]);
-        nanArray.push(NaN);
     }
     net.train([training]);
 
-    console.log(nanArray, net.forecast(training, 7));
+    console.log(net.forecast(training, 7));
 }
 
 //printAIResult();

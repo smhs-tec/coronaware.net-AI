@@ -15,10 +15,10 @@
         <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
    crossorigin=""></script>
-        <script src="cases.js?version=2" defer></script>
-        <script src="labels.js?version=1" defer></script>
-        <script src="index.js?version=4" defer></script>
-        <link rel= "stylesheet" type= "text/css" href= "style.css?version=2">
+        <script src="cases.js?version=3" defer></script>
+        <script src="labels.js?version=2" defer></script>
+        <script src="index.js?version=5" defer></script>
+        <link rel= "stylesheet" type= "text/css" href= "style.css?version=3">
         <meta charset="UTF-8">
         <link rel="icon" type="image/png" sizes="32x32" href="./img/logo-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="./img/logo-16x16.png">
@@ -26,6 +26,16 @@
         <meta property="og:image:secure_url" content="http://coronaware.net/img/logo-500x500.png" />
         <meta name="description" content="Real time website for OC COVID-19 cases"/>
         <!--icon designed by Raihanil Jannah https://www.iconfinder.com/Raihanil_jannah-->
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-161809631-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-161809631-1');
+        </script>
+
     </head>
     <body class="grey lighten-3">
                 
@@ -47,13 +57,21 @@
             <div class="row flex">
                 <div class="col s12" id="captainSection">
                     <h3 id="captainL">95 total cases and 0 deaths as of 3/22/20 (
-                        <a href="https://www.ochealthinfo.com/phs/about/epidasmt/epi/dip/prevention/novel_coronavirus">Orange County</a>). &nbsp;</h3>
+                        <a href="https://occovid19.ochealthinfo.com/coronavirus-in-oc">Orange County</a>). &nbsp;</h3>
                         <p><span style="color: red;">*</span> "+12" : mean that 12 more cases compared to yesterday</p>
                         <span class="badge" style="float: left; background-color: rgb(218, 116, 78);color: black;">Scroll down for charts &#8595;&#8595;</span>
                     <!--<h3><a href = "map">See Map for affected areas.</a></h3>-->
                 </div>
                 <div class="col s12">
                     <!--<h3>Covid-19 Cases</h3>-->
+                    <label>Change Date</label>
+                    <select class="browser-default" style="max-width: 150px; height: 30px;" id="changeDate" 
+                    onchange="updateTable(this.value)">
+                        <option value="" disabled selected>Choose your option</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                    </select>
                     <table class="responsive-table">
                         <thead>
                             <tr style="border-bottom: 3px solid;">
@@ -84,29 +102,45 @@
                 </div>
                 <div class="col s6 resize"> 
                     <div class="card">
-                        <!--<div class="input-field col s12">-->
-                            <label>Sort By</label>
-                            <select class="browser-default" onchange='updateLineChart()' id="sortLine">
-                                <option value="total_cases" selected>Total</option>
-                                <option value="travel_related">Travel Related</option>
-                                <option value="person_to_person_spread">Person-to-person Spread</option>
-                                <option value="community_acquired">Community Acquired</option>
-                                <option value="under_investigation">Under Investigation</option>
-                            </select>
-                        <!--</div>-->
-                        <!--<div class="input-field col s12">-->
-                            <label>Filter By</label>
-                            <select class="browser-default" onchange='updateLineChart()' id="filterLine">
-                                <option value="total" selected>No Filter</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="18"> &lt; 18 </option>
-                                <option value="18-49">18 - 49</option>
-                                <option value="50-64">50 - 64</option>
-                                <option value="65">&ge; 65</option>
-                            </select>
-                        <!--</div>-->
-                        <div class="chartContainer"><canvas id="myChart"></canvas></div>
+                        <div class="row" style="margin-bottom: 0;">
+                            <div class="col s12 tabCoustomize">
+                                <ul class="tabs">
+                                    <li class="tab col s3 tabWidth"><a class="active" href="#trend">Trend</a></li>
+                                    <li class="tab col s3 tabWidth"><a href="#ai-prediction">AI Prediction</a></li>
+                                </ul>
+                            </div>
+                            <div id="trend" class="col s12">
+                                <!--<div class="input-field col s12">-->
+                                <label>Sort By</label>
+                                <select class="browser-default" onchange='updateLineChart()' id="sortLine">
+                                    <option value="total_cases" selected>Total</option>
+                                    <option value="travel_related">Travel Related</option>
+                                    <option value="person_to_person_spread">Person-to-person Spread</option>
+                                    <option value="community_acquired">Community Acquired</option>
+                                    <option value="under_investigation">Under Investigation</option>
+                                </select>
+                                <!--</div>-->
+                                <!--<div class="input-field col s12">-->
+                                <label>Filter By</label>
+                                <select class="browser-default" onchange='updateLineChart()' id="filterLine">
+                                    <option value="total" selected>No Filter</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="18"> &lt; 18 </option>
+                                    <option value="18-49">18 - 49</option>
+                                    <option value="50-64">50 - 64</option>
+                                    <option value="65">&ge; 65</option>
+                                </select>
+                                <!--</div>-->
+                                <div class="chartContainer"><canvas id="myChart"></canvas></div>
+                            </div>
+                            <div id="ai-prediction" class="col s12">
+                                <p style="margin-left: 10px;">The AI predicts total number of cases for the current week, update every Monday. We use 
+                                    <a href="https://en.wikipedia.org/wiki/Recurrent_neural_network">RNN</a> model. 
+                                </p>
+                                <div class="chartContainer"><canvas id="myChart3"></canvas></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col s6 resize"> 

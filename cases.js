@@ -179,28 +179,13 @@ const cases = [
 
 //string generate by printAIResult in index.js
 const predictions = [
-    NaN,
-    NaN,
-    NaN,
-    NaN,
-    NaN,
-    NaN,
-    NaN,
-    NaN,
-    NaN,
-    NaN,
-    NaN,
-    NaN,
-    NaN,
-    NaN,
-    NaN,
     153.12388610839844,
     188.71925354003906,
     232.716064453125,
     287.0288391113281,
     354.0757751464844,
-    436.8473815917969,
-    539.029541015625
+    436.8473815917969
+    //539.029541015625
 ];
 
 const column = {
