@@ -174,6 +174,17 @@ const cases = [
             community_acquired: [45, 27, 18, 1, 20, 14, 10],
             under_investigation: [38, 22, 16, 0, 24, 9, 5]
         }
+    },
+    {
+        date: '3/25',
+        cases: {
+            total_cases: [187, 117, 70, 1, 101, 54, 31],
+            death: [1, 1, 0, 0, 0, 0, 1],
+            travel_related: [62, 32, 30, 0, 35, 16, 11],
+            person_to_person_spread: [17, 12, 5, 0, 11, 5, 1],
+            community_acquired: [57, 36, 21, 1, 27, 18, 101],
+            under_investigation: [51, 37, 14, 0, 28, 15, 8]
+        }
     }
 ];
 

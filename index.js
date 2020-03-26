@@ -8,6 +8,14 @@ function isMobile() {
     return false;
 }
 
+function reverseArray(arr) {
+    var newArray = [];
+    for (var i = arr.length - 1; i >= 0; i--) {
+        newArray.push(arr[i]);
+    }
+    return newArray;
+}
+
 function adjustGraph() {
     //console.log(trendLineChart.options.aspectRatio);
     trendLineChart.canvas.parentNode.style.height = '328px';
@@ -68,8 +76,9 @@ function updateCaptain() {
         '<span class="badge" style="float: left; background-color: rgb(218, 116, 78);color: black;">Scroll down for charts &#8595;&#8595;</span>'
         ;
 
-    let reverseDate = dateLabel.reverse();
+    let reverseDate = reverseArray(dateLabel);
     let result = '<option value="' + (reverseDate.length - 1) +'" selected>Today</option>';
+
     for (let ele in reverseDate) {
         result += '<option value="' + (reverseDate.length - ele - 1) + '">' + reverseDate[ele] +'</option>';
     }
@@ -124,7 +133,7 @@ function updateTable(todayTableIndex) {
         for (let ele in value) {
             let todayNum = value[ele];
             let prevNum = prevCas[key][ele];
-            row += '<td>' + todayNum + '<span style="margin-left: 10px;"><span>'
+            row += '<td>' + todayNum + '<span style="margin-left: 8px;"><span>'
                 + generateSpan(todayNum - prevNum) + '</td>';
         }
 
@@ -222,7 +231,7 @@ var trendLineChart = new Chart(ctx, {
         labels: [],
         datasets: [
             {
-                label: 'Active Cases',
+                label: 'Total Cases',
                 backgroundColor: 'transparent',
                 borderColor: '#ee6e73',
                 pointBackgroundColor: '#ee6e73',

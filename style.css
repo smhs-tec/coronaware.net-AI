@@ -5,8 +5,16 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-
+    font-size: 16px;
 }
+p {
+    font-size: 14px;
+}
+
+table {
+    font-size: 14px;
+}
+
 main {
     width: 100%;
     padding: 114px 50px 50px 350px;
@@ -142,3 +150,6 @@ nav {
         font-size: 23px;
     }
 }
+
+/*** iPhone and iOS Form Input Zoom Fixes ***/
+input, select { font-size: 100%; }
