@@ -8,6 +8,11 @@ function isMobile() {
     return false;
 }
 
+function maxFifty(numIn) {
+    console.log(parseInt(numIn) / 50);
+    return (Math.floor((parseInt(numIn) / 50)) + 1) * 50;
+}
+
 function reverseArray(arr) {
     var newArray = [];
     for (var i = arr.length - 1; i >= 0; i--) {
@@ -47,6 +52,7 @@ $(document).ready(function(){
         adjustGraph();
     }
     $('.tabs').tabs();
+    $('.modal').modal();
 });
 
 //trendLineChart.js setup
@@ -254,8 +260,8 @@ var trendLineChart = new Chart(ctx, {
         scales: {
             yAxes: [{
                 ticks: {
-                    suggestedMin: 0,
-                    suggestedMax: 150
+                    min: 0,
+                    max: maxFifty(Math.floor(currentTable.cases.total_cases[0]) + 1)
                 }
             }]
         },

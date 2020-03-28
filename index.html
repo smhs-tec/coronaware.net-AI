@@ -15,9 +15,9 @@
         <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
    crossorigin=""></script>
-        <script src="cases.js?version=4" defer></script>
+        <script src="cases.js?version=6" defer></script>
         <script src="labels.js?version=2" defer></script>
-        <script src="index.js?version=7" defer></script>
+        <script src="index.js?version=8" defer></script>
         <link rel= "stylesheet" type= "text/css" href= "style.css?version=5">
         <meta charset="UTF-8">
         <link rel="icon" type="image/png" sizes="32x32" href="./img/logo-32x32.png">
@@ -51,9 +51,19 @@
             <li><a class="waves-effect" href="contact" ><i class="material-icons">email</i>Contact</a></li>
             <li><a class="waves-effect" href="about"><i class="material-icons">info</i>About</a></li>
         </ul>
-       
+
+        <!--website stop-->
+        <div id="modal1" class="modal" style="opacity: 1; display: block; z-index: 18; margin-top: 50px;">
+            <div class="modal-content">
+                <h4>The website is temporality closed. </h4>
+                <p style="font-size: 18px;">Click <a href="https://occovid19.ochealthinfo.com/coronavirus-in-oc">here</a> for viewing cases</p>
+            </div>
+        </div>
+        <div class="modal-overlay" style="z-index: 1002; display: block; opacity: 0.5; z-index: 17;"></div>
+
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
             <main>
+
             <div class="row flex">
                 <div class="col s12" id="captainSection">
                     <h3 id="captainL">95 total cases and 0 deaths as of 3/22/20 (
