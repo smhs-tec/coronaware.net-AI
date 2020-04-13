@@ -44,7 +44,9 @@ ul#sidenav-1 *{
 }
 
 #mapid { 
-    height: 100%; z-index: 0; background-color: black;
+    height: 100%; 
+    z-index: 0; 
+    background-color: black;
     margin: 0;
 }
 
@@ -81,7 +83,6 @@ nav {
 #sidenav-1 {
     padding-top: 32px;
     top: 64px;
-    z-index:11;
 }
 
 @media only screen and (max-width: 992px) {
