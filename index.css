@@ -1,0 +1,38 @@
+.map-link {
+    font-size: 25px;
+    margin: 10px 0;
+    margin-bottom: 0;
+}
+
+.indication {
+    margin: 5px 0;
+}
+
+.titleAI {
+    font-size: 15px;
+    text-align: center;
+    margin: 0;
+    margin-top: 10px;
+}
+
+.caption-high {
+    text-decoration: underline; 
+    font-weight: bolder;
+}
+
+.tabWidth {
+    width: calc(100% / 3)!important;
+}
+
+#captainL {
+    font-size: 30px;
+    margin-bottom: 0;
+}
+
+#trend {
+    display: block!important;
+}
+
+main {
+    padding-bottom: 0!important;
+}

@@ -1,3 +1,4 @@
+cases = cases.slice(0, indexOf3_26);
 /**
  * check if the user is on mobile or ipad
  */
@@ -29,32 +30,6 @@ function adjustGraph() {
     aiPredictionLineChart.canvas.parentNode.style.width = '100%';
 }
 
-//menu setup
-function chartsize() {
-    width = document.documentElement.clientWidth;
-        if (width < 1300){
-            $('.resize').removeClass('s6');
-            $('.resize').addClass('s12');
-        }
-        else {
-            $('.resize').removeClass('s12');
-            $('.resize').addClass('s6');
-        }
-}
-
-$(document).ready(function(){
-    $('select').formSelect();
-    $('.sidenav').sidenav(); 
-    chartsize();
-    window.onresize = function(event) { 
-        $('.sidenav').sidenav(); 
-        chartsize();
-        adjustGraph();
-    }
-    $('.tabs').tabs();
-    $('.modal').modal();
-});
-
 //trendLineChart.js setup
 function generateSpan(numIn) {
     if(numIn > 0) {
@@ -83,7 +58,8 @@ function updateCaptain() {
         ;
 
     let reverseDate = reverseArray(dateLabel);
-    let result = '<option value="' + (reverseDate.length - 1) +'" selected>Today</option>';
+    //let result = '<option value="' + (reverseDate.length - 1) +'" selected>Today</option>';
+    let result = '';
 
     for (let ele in reverseDate) {
         result += '<option value="' + (reverseDate.length - ele - 1) + '">' + reverseDate[ele] +'</option>';
@@ -126,6 +102,8 @@ function loadPieChart(labelsIn, dataIn) {
 function updateTable(todayTableIndex) {
     let result = '';
     todayTableIndex = parseInt(todayTableIndex);
+    console.log(todayTableIndex);
+
     let todayCas = cases[todayTableIndex].cases;
     let prevCas = cases[todayTableIndex].cases;
 

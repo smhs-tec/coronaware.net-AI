@@ -39,6 +39,11 @@ footer {
     color: white;
 }
 
+.sidenav-trigger {
+    margin: 0!important;
+    margin-left: -15px!important;;
+}
+
 ul#sidenav-1 *{
     color: white;
 }
@@ -81,7 +86,7 @@ nav {
   }
 
 #sidenav-1 {
-    padding-top: 32px;
+    padding-top: 10px;
     top: 64px;
 }
 

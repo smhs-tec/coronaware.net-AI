@@ -1,4 +1,4 @@
-const cases = [
+var cases = [
     {
         date: '3/9',
         cases: {
@@ -196,6 +196,17 @@ const cases = [
             community_acquired: [75, 49, 26, 1, 37, 22, 15],
             under_investigation: [73, 39, 35, 0, 42, 26, 5]
        }
+    },
+    {
+        date: '3/26',
+        cases: {
+            total_cases: [250, 149, 101, 1, 134, 76, 39],
+            death: [1, 1, 0, 0, 0, 0, 1],
+            travel_related: [75, 42, 33, 0, 40, 21, 14],
+            person_to_person_spread: [27, 20, 7, 0, 15, 7, 5],
+            community_acquired: [75, 49, 26, 1, 37, 22, 15],
+            under_investigation: [73, 39, 35, 0, 42, 26, 5]
+        }
     }
 ];
 

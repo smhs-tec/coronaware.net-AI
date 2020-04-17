@@ -2,7 +2,7 @@ const millSecondInADay = 86400000;
 
 const startDate = new Date("March 9, 2020");
 const startTime = startDate.getTime();
-const currentTime = new Date().getTime();
+const currentTime = new Date("March 26, 2020 00:01").getTime();
 
 var currentParse = startTime;
 var dateLabel = [];
@@ -50,9 +50,11 @@ for (let ele of dateLabelPrediction) {
     }
 }
 
-if(cases[cases.length-1].date != dateLabel[dateLabel.length-1]) {
+if(dateLabel.length > cases.length 
+    && cases[cases.length-1].date != dateLabel[dateLabel.length-1]) {
     dateLabel.splice(-1,1);
 }
 
-const currentTable = cases[cases.length - 1];
-const currentTablePrev = cases[cases.length - 2];
+const indexOf3_26 = 18;
+const currentTable = cases[indexOf3_26 - 1];
+const currentTablePrev = cases[indexOf3_26 - 2];

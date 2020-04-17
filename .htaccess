@@ -2,7 +2,7 @@
 php_value display_errors 1
 # DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES ABOVE HTID:7536466:
 RewriteEngine On
-ErrorDocument 404 /404.php
+ErrorDocument 404 /404.html
 RewriteCond %{DOCUMENT_ROOT}/install -d
 RewriteRule !^install/ /install/ [L,NC,R=302]
 
