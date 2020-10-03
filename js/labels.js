@@ -1,8 +1,15 @@
+function dateSort(a, b) {
+    date1 = new Date('2020/' + a);
+    date2 = new Date('2020/' + b);
+    
+    return date1.getTime() - date2.getTime();
+}
+
 const millSecondInADay = 86400000;
 
 const startDate = new Date("March 9, 2020");
 const startTime = startDate.getTime();
-const currentTime = new Date("March 26, 2020 00:01").getTime();
+const currentTime = new Date().getTime();
 
 var currentParse = startTime;
 var dateLabel = [];
@@ -37,24 +44,27 @@ for(let i = 0; i < 7; i++) {
     currentParse += millSecondInADay;
 }
 
-dateLabelPrediction = dateLabelPrediction.sort();
-dateLabelPrediction.shift();
+dateLabelPrediction = dateLabelPrediction.sort(dateSort);
+const thisWeekDates = dateLabelPrediction;
+//dateLabelPrediction.shift();
 
 for (let ele of dateLabelPrediction) {
     var found = cases.find(function (element) {
         return element.date == ele;
-    }); 
+    });
 
     if (found != undefined) {
         dateLabelActual.push(found.cases.total_cases[0]);
     }
 }
 
+dateLabelPrediction = ["3/24", "3/25", "3/26", "3/27", "3/28", "3/29"];
+dateLabelActual = [152, 187, 250];
+
 if(dateLabel.length > cases.length 
     && cases[cases.length-1].date != dateLabel[dateLabel.length-1]) {
     dateLabel.splice(-1,1);
 }
-
 const indexOf3_26 = 18;
 const currentTable = cases[indexOf3_26 - 1];
 const currentTablePrev = cases[indexOf3_26 - 2];

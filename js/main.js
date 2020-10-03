@@ -23,3 +23,25 @@ function chartsize() {
         $('.resize').addClass('s6');
     }
 }
+
+/**
+ * check if the user is on mobile or ipad
+ */
+function isMobile() {
+    if (/iPhone|iPad|iPodMobi|Android/i.test(navigator.userAgent)) {
+        return true;
+    }
+    return false;
+}
+
+function maxFifty(numIn) {
+    return (Math.floor((parseInt(numIn) / 50)) + 1) * 50;
+}
+
+function reverseArray(arr) {
+    var newArray = [];
+    for (var i = arr.length - 1; i >= 0; i--) {
+        newArray.push(arr[i]);
+    }
+    return newArray;
+}

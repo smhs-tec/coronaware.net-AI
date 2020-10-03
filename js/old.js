@@ -1,29 +1,7 @@
 cases = cases.slice(0, indexOf3_26);
-/**
- * check if the user is on mobile or ipad
- */
-function isMobile() {
-    if (/iPhone|iPad|iPodMobi|Android/i.test(navigator.userAgent)) {
-        return true;
-    }
-    return false;
-}
-
-function maxFifty(numIn) {
-    console.log(parseInt(numIn) / 50);
-    return (Math.floor((parseInt(numIn) / 50)) + 1) * 50;
-}
-
-function reverseArray(arr) {
-    var newArray = [];
-    for (var i = arr.length - 1; i >= 0; i--) {
-        newArray.push(arr[i]);
-    }
-    return newArray;
-}
+dateLabel = dateLabel.slice(0, indexOf3_26);
 
 function adjustGraph() {
-    //console.log(trendLineChart.options.aspectRatio);
     trendLineChart.canvas.parentNode.style.height = '328px';
     trendLineChart.canvas.parentNode.style.width = '100%';
     aiPredictionLineChart.canvas.parentNode.style.height = '328px';
@@ -54,7 +32,7 @@ function updateCaptain() {
         date +' (<a href="https://www.ochealthinfo.com/phs/about/epidasmt/epi/dip/prevention/novel_coronavirus">Orange County</a>).  &nbsp; </h1>' +
         '<p style="margin: 5px 0;">* ' + generateSpan(difference) + ' : means that ' + difference +' more cases compared to yesterday</p>' +
         '<p style="margin: 5px 0; margin-top:-3px">* the cases are categoried as <b>unknown</b> were not recorded in this website</p>' +
-        '<span class="badge" style="float: left; background-color: rgb(218, 116, 78);color: black;">Scroll down for charts &#8595;&#8595;</span>'
+        '<span class="badge" style="float: left; background-color: rgb(218, 116, 78);color: black;">Scroll down for graphs &#8595;&#8595;</span>'
         ;
 
     let reverseDate = reverseArray(dateLabel);
@@ -102,7 +80,6 @@ function loadPieChart(labelsIn, dataIn) {
 function updateTable(todayTableIndex) {
     let result = '';
     todayTableIndex = parseInt(todayTableIndex);
-    console.log(todayTableIndex);
 
     let todayCas = cases[todayTableIndex].cases;
     let prevCas = cases[todayTableIndex].cases;

@@ -19,6 +19,7 @@
     <script src="js/cases.js?version=6" defer></script>
     <script src="js/labels.js?version=2" defer></script>
     <script src="js/main.js?version=8" defer></script>
+    <script src="js/ai.js?version=8" defer></script>
     <link rel="stylesheet" type="text/css" href="style.css?version=1">
     <link rel="stylesheet" type="text/css" href="index.css?version=1">
     <meta charset="UTF-8">
@@ -64,39 +65,44 @@
         <div class="row flex">
             <div class="col s12" id="captainSection">
                 <h3 id="captainL">This website now <span class="caption-high">only</span> has <span class="caption-high">AI predictions</span> 
-                    and <span class="caption-high">map</span> on total cases and deaths.
+                    on total cases.
                 </h3>
                 <p style="margin: 0; margin-top: 5px;"><span style="color: red;">*</span> Click <a href="https://occovid19.ochealthinfo.com/coronavirus-in-oc">HERE</a>
                     for <span class="caption-high">COVID-19 data</span> in Orange County.
                 </p>
                 <p style="margin-top: 0; margin-bottom: 0;"><span style="color: red;">*</span> Click <a href="old">HERE</a> to the <span class="caption-high">old version</span> of this website.</p>
-                <h3 class="map-link"><a href="map">See Map for affected areas.</a></h3>
             </div>
         
-            <div class="col s6 resize">
+            <div class="col s6 resize" style="margin-right: auto;">
                 <div class="card">
                     <div class="row" style="margin-bottom: 0;">
-                        <h4 class="titleAI">Our AI Models</h4>
+                        <h4 class="titleAI">Three different AI models for predictions</h4>
                         <div class="col s12 tabCoustomize">
-                            <ul class="tabs">
-                                <li class="tab col s3 tabWidth"><a class="active" href="#trend">RNN</a></li>
-                                <li class="tab col s3 tabWidth"><a href="#trend">LSTM</a></li>
-                                <li class="tab col s3 tabWidth"><a href="#trend">GRU</a></li>
-                            </ul>
-                        </div>
-                        <div id="trend" class="col s12">
-                            <div class="chartContainer"><canvas id="aiPrediction"></canvas></div>
+                            <div id="trend" class="col s12">
+                                <div class="chartContainer"><canvas id="aiPrediction"></canvas></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col s6 resize">
+            <div class="col s6 resize" style="margin-right: auto;">
                 <div class="card">
-                    <h1>the map</h1>
+                    <div class="row" style="margin-bottom: 0;">
+                        <h4 class="titleAI">Analysis we did before this version</h4>
+                        <div class="col s12 tabCoustomize">
+                            <div class="col s12">
+                                <iframe
+                                    src="https://docs.google.com/presentation/d/e/2PACX-1vRi5f-IIXbbWojFzXj_RpaUyrmz1n9UmrCWogeAFdAidrryOZXqxE_11LjcZvCi6IRHQf99nTUYZEZa/embed?start=false&loop=false&delayms=3000"
+                                    frameborder="0" width="100%" height="400" allowfullscreen="true" mozallowfullscreen="true"
+                                    webkitallowfullscreen="true">
+                                </iframe>
+                            </div>
+                        </div>
+                        <h4 class="titleAI">Here is the <a href="https://github.com/robingan7/Analysis-on-predicting-COVID-19-cases/blob/master/final%20project.ipynb">code</a> of this analysis</h4>
+                    </div>
                 </div>
             </div>
-
         </div>
     </main>
     <footer class="page-footer grey darken-4">
